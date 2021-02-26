@@ -19,6 +19,13 @@ properties:
   - name: app
     properties:
       image: dasonmixon/dason-pokemon
+      environmentVariables:
+        - name: 'ConnectionStrings__mongo'
+          value: '<connection string here>'
+        - name: 'pokemontcg_apikey'
+          secureValue: '<api key here>'
+        - name: 'pokemontcg_baseUrl'
+          secureValue: '<base url here>'
       ports:
       - port: 80
         protocol: TCP
