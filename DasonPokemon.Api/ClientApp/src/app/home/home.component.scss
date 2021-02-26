@@ -1,0 +1,41 @@
+.carousel .carousel-item {
+    height: 500px;
+    width: 900px;
+}
+
+.carousel {
+    height: 500px;
+    width: 900px;
+
+    border-radius: 2em;
+    overflow: hidden;
+}
+
+.carousel-item img {
+    position: absolute;
+    object-fit:cover;
+    top: 0;
+    left: 0;
+    min-height: 500px;
+    min-width: 900px;
+}
+
+.carousel-caption-background {
+    background-color: #414141;
+    opacity: 50%;
+}
+
+.outline-text {
+    text-shadow: 0 0 3px black, 0 0 3px black, 0 0 3px black, 0 0 3px black;
+}
+
+.transparent-background {
+    background-color: rgba(0,0,0,0.5);
+}
+
+.carousel-caption {
+    bottom: 0rem;
+    right: 0%;
+    left: 0%;
+    height: 10rem;
+}
