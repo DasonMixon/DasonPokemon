@@ -57,11 +57,9 @@ namespace DasonPokemon.Api
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "DasonPokemon.Api v1"));
             } else
             {
-              app.UseExceptionHandler("/Error");
-              app.UseHsts();
+                app.UseExceptionHandler("/Error");
             }
 
-            app.UseHttpsRedirection();
             app.UseStaticFiles();
             if (!env.IsDevelopment())
             {
@@ -71,11 +69,6 @@ namespace DasonPokemon.Api
             app.UseRouting();
 
             app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
 
             app.UseEndpoints(endpoints =>
             {

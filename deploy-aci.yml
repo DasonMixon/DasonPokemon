@@ -1,0 +1,42 @@
+api-version: 2019-12-01
+location: eastus2
+name: dason-pokemon
+properties:
+  containers:
+  - name: nginx
+    properties:
+      image: nginx
+      ports:
+      - port: 443
+        protocol: TCP
+      resources:
+        requests:
+          cpu: 1.0
+          memoryInGB: 1.5
+      volumeMounts:
+      - name: nginx-config
+        mountPath: /etc/nginx
+  - name: app
+    properties:
+      image: dasonmixon/dason-pokemon
+      ports:
+      - port: 80
+        protocol: TCP
+      resources:
+        requests:
+          cpu: 1.0
+          memoryInGB: 1.5
+  volumes:
+  - secret:
+      ssl.crt: <Enter contents of base64-ssl.crt here>
+      ssl.key: <Enter contents of base64-ssl.key here>
+      nginx.conf: <Enter contents of base64-nginx.conf here>
+    name: nginx-config
+  ipAddress:
+    ports:
+    - port: 443
+      protocol: TCP
+    type: Public
+  osType: Linux
+tags: null
+type: Microsoft.ContainerInstance/containerGroups
