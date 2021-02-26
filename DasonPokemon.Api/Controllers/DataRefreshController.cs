@@ -22,13 +22,13 @@ namespace DasonPokemon.Api.Controllers
         [HttpGet("{apiKey}")]
         public async Task<IActionResult> Refresh(string apiKey)
         {
-            var expectedApiKey = _configuration.GetValue<string>("pokemontcg.apikey");
+            var expectedApiKey = _configuration.GetValue<string>("pokemontcg_apikey");
             if (!expectedApiKey.Equals(apiKey, System.StringComparison.InvariantCultureIgnoreCase))
             {
                 return BadRequest("Invalid API key");
             }
 
-            var baseUrl = _configuration.GetValue<string>("pokemontcg.baseUrl");
+            var baseUrl = _configuration.GetValue<string>("pokemontcg_baseUrl");
             var success = await _dataRefreshService.Refresh(baseUrl, apiKey);
             return success ? Ok() : new StatusCodeResult(StatusCodes.Status500InternalServerError);
         }
