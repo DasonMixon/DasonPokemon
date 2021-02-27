@@ -32,6 +32,7 @@ export class ExploreComponent implements OnInit {
   selectedSet : Set | null = null;
 
   cards : Card[] = [];
+  selectedCard : Card | null = null;
 
   httpClient : HttpClient;
 
@@ -90,5 +91,9 @@ export class ExploreComponent implements OnInit {
 
   public sortCardsBy(prop: string) {
     return this.cards.sort((a : any, b : any) => a[prop] > b[prop] ? 1 : a[prop] === b[prop] ? 0 : -1);
+  }
+
+  public zoomCard(card : Card) {
+    this.selectedCard = card;
   }
 }
