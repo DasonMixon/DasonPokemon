@@ -46,7 +46,7 @@
 
     <div class="row text-center row-eq-height" style="color: #313131;" *ngIf="!waitingForData && viewingCardsInSet">
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 col-xl-2 d-flex" style="margin-bottom: 25px;" *ngFor="let card of sortCardsBy('name')">
-            <img [src]="card.image" class="w-100" (click)="zoomCard(card)" data-bs-toggle="modal" data-bs-target="#cardModal" />
+            <img [src]="card.image" class="w-100 img-responsive align-middle" (click)="zoomCard(card)" data-bs-toggle="modal" data-bs-target="#cardModal" />
         </div>
     </div>
 
