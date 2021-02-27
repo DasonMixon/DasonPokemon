@@ -1,5 +1,14 @@
 <div class="dark-background content-section">
-    <h2>Sets</h2>
+    <div class="card w-100 mb-4" *ngIf="!waitingForData">
+        <div class="card-body">
+            <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                  <li class="breadcrumb-item" [ngClass]="{ 'active': viewingSets, 'cursor-pointer': !viewingSets }"><a (click)="goToSets()">Sets</a></li>
+                  <li class="breadcrumb-item" *ngIf="viewingCardsInSet" [ngClass]="{ 'active': viewingCardsInSet }">{{ selectedSet!.name }}</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
 
     <div class="row text-center" *ngIf="waitingForData">
         <div style="margin-top: 150px;">
@@ -7,17 +16,33 @@
         </div>
     </div>
 
-    <div class="row" *ngIf="!waitingForData && viewingSets">
-        <div class="col col-2" *ngFor="let set of sets">
-            <a (click)="loadCardForSet(set)">
-                <img [src]="set.image" class="w-100" />
+    <div class="row text-center row-eq-height" style="color: #313131;" *ngIf="!waitingForData && viewingSets">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 d-flex" style="margin-bottom: 25px;" *ngFor="let set of sortSetsBy('releaseDate')">
+            <a (click)="loadCardForSet(set)" class="w-100 h-100 cursor-pointer" style="text-decoration: none; color: #313131;">
+                <div class="card w-100" style="height: 300px;">
+                    <img [src]="set.image" class="img-responsive align-middle" style="margin: 15px; max-height: 200px;" />
+                    <div class="card-body mt-auto d-flex justify-content-center" style="max-height: 100px;">
+                        <h5 class="card-title mt-auto">{{ set.name }}</h5>
+                    </div>
+                </div>
             </a>
         </div>
     </div>
 
-    <div class="row" *ngIf="!waitingForData && viewingCardsInSet">
-        <div class="col col-2" *ngFor="let card of cards">
+    <div class="row text-center row-eq-height" style="color: #313131;" *ngIf="!waitingForData && viewingCardsInSet">
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 col-xl-2 d-flex" style="margin-bottom: 25px;" *ngFor="let card of sortCardsBy('name')">
             <img [src]="card.image" class="w-100" />
+        </div>
+    </div>
+
+    <div class="card w-100 mb-4" *ngIf="!waitingForData">
+        <div class="card-body">
+            <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                  <li class="breadcrumb-item" [ngClass]="{ 'active': viewingSets, 'cursor-pointer': !viewingSets }"><a (click)="goToSets()">Sets</a></li>
+                  <li class="breadcrumb-item" *ngIf="viewingCardsInSet" [ngClass]="{ 'active': viewingCardsInSet }">{{ selectedSet!.name }}</li>
+                </ol>
+            </nav>
         </div>
     </div>
 </div>

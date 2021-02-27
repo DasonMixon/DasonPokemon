@@ -29,6 +29,8 @@ export class ExploreComponent implements OnInit {
   viewingCardsInSet : boolean = false;
 
   sets : Set[] = [];
+  selectedSet : Set | null = null;
+
   cards : Card[] = [];
 
   httpClient : HttpClient;
@@ -60,6 +62,7 @@ export class ExploreComponent implements OnInit {
   public loadCardForSet(set : Set) {
     this.waitingForData = true;
     this.cards = [];
+    this.selectedSet = set;
     this.httpClient.get("api/cards/set/" + set.id).subscribe((data: any) => {
       this.cards = data.map((item : any) => {
         return {
@@ -73,5 +76,19 @@ export class ExploreComponent implements OnInit {
       this.viewingCardsInSet = true;
       this.waitingForData = false;
     });
+  }
+
+  public goToSets() {
+    this.viewingCardsInSet = false;
+    this.viewingSets = true;
+    this.selectedSet = null;
+  }
+
+  public sortSetsBy(prop: string) {
+    return this.sets.sort((a : any, b : any) => a[prop] > b[prop] ? -1 : a[prop] === b[prop] ? 0 : 1);
+  }
+
+  public sortCardsBy(prop: string) {
+    return this.cards.sort((a : any, b : any) => a[prop] > b[prop] ? 1 : a[prop] === b[prop] ? 0 : -1);
   }
 }
