@@ -32,5 +32,13 @@ namespace DasonPokemon.Api.Controllers
             var sets = await _setService.GetAllAsync();
             return sets.Any() ? Ok(sets) : NotFound();
         }
+
+
+        [HttpGet("generatepack/{setId}")]
+        public async Task<ActionResult<IEnumerable<Set>>> GenerateDeckFromSet(Guid setId)
+        {
+            var pack = await _setService.GeneratePack(setId);
+            return NotFound();
+        }
     }
 }

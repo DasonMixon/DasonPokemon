@@ -8,6 +8,7 @@ import { DeckDraftingComponent } from './deck-drafting/deck-drafting.component';
 import { TournamentComponent } from './tournament/tournament.component';
 import { ExploreComponent } from './explore/explore.component';
 import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { RouterModule } from '@angular/router';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

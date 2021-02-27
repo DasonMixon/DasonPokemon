@@ -62,16 +62,16 @@ export class PackSimulatorComponent implements OnInit {
 
     // For now, gonna just return some dummy data
     this.selectedPack!.cards = [
-      { id: '1', name: 'someCard1', image: 'https://images.pokemontcg.io/base1/18_hires.png', flipped: false },
-      { id: '2', name: 'someCard2', image: 'https://images.pokemontcg.io/base1/21_hires.png', flipped: false },
-      { id: '3', name: 'someCard3', image: 'https://images.pokemontcg.io/base1/21_hires.png', flipped: false },
-      { id: '4', name: 'someCard4', image: 'https://images.pokemontcg.io/base1/21_hires.png', flipped: false },
-      { id: '5', name: 'someCard5', image: 'https://images.pokemontcg.io/base1/21_hires.png', flipped: false },
-      { id: '6', name: 'someCard6', image: 'https://images.pokemontcg.io/base1/21_hires.png', flipped: false },
-      { id: '7', name: 'someCard7', image: 'https://images.pokemontcg.io/base1/21_hires.png', flipped: false },
-      { id: '8', name: 'someCard8', image: 'https://images.pokemontcg.io/base1/21_hires.png', flipped: false },
-      { id: '9', name: 'someCard9', image: 'https://images.pokemontcg.io/base1/21_hires.png', flipped: false },
-      { id: '10', name: 'someCard10', image: 'https://images.pokemontcg.io/base1/21_hires.png', flipped: false },
+      { id: '1', name: 'someCard1', image: 'https://images.pokemontcg.io/swsh4/188_hires.png', flipped: false },
+      { id: '2', name: 'someCard2', image: 'https://images.pokemontcg.io/swsh4/188_hires.png', flipped: false },
+      { id: '3', name: 'someCard3', image: 'https://images.pokemontcg.io/swsh4/188_hires.png', flipped: false },
+      { id: '4', name: 'someCard4', image: 'https://images.pokemontcg.io/swsh4/188_hires.png', flipped: false },
+      { id: '5', name: 'someCard5', image: 'https://images.pokemontcg.io/swsh4/188_hires.png', flipped: false },
+      { id: '6', name: 'someCard6', image: 'https://images.pokemontcg.io/swsh4/188_hires.png', flipped: false },
+      { id: '7', name: 'someCard7', image: 'https://images.pokemontcg.io/swsh4/188_hires.png', flipped: false },
+      { id: '8', name: 'someCard8', image: 'https://images.pokemontcg.io/swsh4/188_hires.png', flipped: false },
+      { id: '9', name: 'someCard9', image: 'https://images.pokemontcg.io/swsh4/188_hires.png', flipped: false },
+      { id: '10', name: 'someCard10', image: 'https://images.pokemontcg.io/swsh4/188_hires.png', flipped: false },
     ];
 
     setTimeout(() => {

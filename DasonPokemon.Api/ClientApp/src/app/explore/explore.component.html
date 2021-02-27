@@ -1,3 +1,23 @@
 <div class="dark-background content-section">
-    <p>explore works!</p>
+    <h2>Sets</h2>
+
+    <div class="row text-center" *ngIf="waitingForData">
+        <div style="margin-top: 150px;">
+            <img src="/assets/pikachu_face.png" class="img-fluid box bounce-5" />
+        </div>
+    </div>
+
+    <div class="row" *ngIf="!waitingForData && viewingSets">
+        <div class="col col-2" *ngFor="let set of sets">
+            <a (click)="loadCardForSet(set)">
+                <img [src]="set.image" class="w-100" />
+            </a>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="!waitingForData && viewingCardsInSet">
+        <div class="col col-2" *ngFor="let card of cards">
+            <img [src]="card.image" class="w-100" />
+        </div>
+    </div>
 </div>
