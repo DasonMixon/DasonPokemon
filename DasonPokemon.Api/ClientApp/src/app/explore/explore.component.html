@@ -1,4 +1,6 @@
 <div class="dark-background content-section">
+
+    <!-- Top breadcrumbs and search -->
     <div class="card w-100 mb-4" *ngIf="!waitingForData">
         <div class="card-body">
             <div class="row">
@@ -23,14 +25,17 @@
         </div>
     </div>
 
+    <!-- Loading icon -->
     <div class="row text-center" *ngIf="waitingForData">
         <div style="margin-top: 150px;">
             <img src="/assets/pikachu_face.png" class="img-fluid box bounce-5" />
         </div>
     </div>
 
+    <!-- Search bar -->
     <input style="display: none;" type="text" [(ngModel)]="cardSearchText" name="cardSearch" />
 
+    <!-- Set list -->
     <div class="row text-center row-eq-height" style="color: #313131;" *ngIf="!waitingForData && viewingSets">
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 d-flex" style="margin-bottom: 25px;" *ngFor="let set of sortSetsBy('releaseDate')">
             <a (click)="loadCardForSet(set)" class="w-100 h-100 cursor-pointer" style="text-decoration: none; color: #313131;">
@@ -44,12 +49,14 @@
         </div>
     </div>
 
+    <!-- Card list -->
     <div class="row text-center row-eq-height" style="color: #313131; display: flex;" *ngIf="!waitingForData && viewingCardsInSet">
-        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 col-xl-2 d-flex" style="margin-bottom: 25px; display: flex; align-items: flex-start;" *ngFor="let card of sortCardsBy('name')">
-            <img [src]="card.image" class="w-100 img-responsive align-middle" style="height: auto;" (click)="zoomCard(card)" data-bs-toggle="modal" data-bs-target="#cardModal" />
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 d-flex" style="margin-bottom: 25px; display: flex; align-items: flex-start;" *ngFor="let card of sortCardsBy('name')">
+            <img [src]="card.image" class="w-100 img-responsive align-middle cursor-pointer" style="height: auto;" (click)="zoomCard(card)" data-bs-toggle="modal" data-bs-target="#cardModal" />
         </div>
     </div>
 
+    <!-- Bottom breadcrumbs -->
     <div class="card w-100 mb-4" *ngIf="!waitingForData">
         <div class="card-body">
             <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
@@ -62,8 +69,9 @@
     </div>
 </div>
 
+<!-- Card zoom modal -->
 <div class="modal fade" id="cardModal" tabindex="-1" aria-labelledby="cardModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-md">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content transparent-background" style="padding: 20px;">
             <div class="ml-auto">
                 <button type="button" class="btn-close btn-close-white btn-lg float-end" style="margin-bottom: 5px;" data-bs-dismiss="modal" aria-label="Close"></button>

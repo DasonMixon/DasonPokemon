@@ -33,6 +33,7 @@ export class PackSimulatorComponent implements OnInit {
   packs : Pack[];
 
   selectedPack : Pack | null;
+  selectedCard : Card | null;
   waitingForPackResults : boolean = false;
 
   constructor() {
@@ -44,6 +45,7 @@ export class PackSimulatorComponent implements OnInit {
     ];
 
     this.selectedPack = null;
+    this.selectedCard = null;
   }
 
   ngOnInit(): void {
@@ -90,6 +92,9 @@ export class PackSimulatorComponent implements OnInit {
 
   public flipCard(card : Card) {
     card.flipped = true;
-    console.log("flipping card");
+  }
+
+  public zoomCard(card : Card) {
+    this.selectedCard = card;
   }
 }

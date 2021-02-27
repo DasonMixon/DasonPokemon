@@ -15,7 +15,7 @@
     </div>
 
     <div class="row text-center justify-content-center" *ngIf="state == 2">
-        <div class="col col-xs-12 col-sm-8 col-md-6 col-lg-6 col-xl-4">
+        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-6 col-xl-4">
             <div class="card mb-5 mx-auto">
                 <div class="card-header" style="color: black;">
                     {{ selectedPack!.name }}
@@ -42,13 +42,25 @@
     </div>
 
     <div class="row text-center" *ngIf="state == 3 && !waitingForPackResults">
-        <div class="col col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 d-flex" *ngFor="let card of selectedPack!.cards" style="margin-bottom: 15px;">
-            <div class="scene mx-auto">
-                <div class="pack-card" (click)="flipCard(card)" [ngClass]="{ 'is-flipped': card.flipped}">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 d-flex" *ngFor="let card of selectedPack!.cards" style="margin-bottom: 15px;">
+            <div class="scene mx-auto w-100">
+                <div class="pack-card cursor-pointer" (click)="flipCard(card)" [ngClass]="{ 'is-flipped': card.flipped}">
                     <img src="/assets/card_back.jpg" class="img-fluid card__face card__face--front" style="border-radius: 0.7em;" />
-                    <img [src]="card!.image" class="img-fluid card__face card__face--back" style="position: absolute; left: 0%; border-radius: 0.7em;" />
+                    <img [src]="card!.image" class="img-fluid card__face card__face--back" (click)="zoomCard(card)" data-bs-toggle="modal" data-bs-target="#packCardModal" style="position: absolute; left: 0%; border-radius: 0.7em;" />
                 </div>
               </div>
+        </div>
+    </div>
+</div>
+
+<!-- Card zoom modal -->
+<div class="modal fade" id="packCardModal" tabindex="-1" aria-labelledby="cardModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content transparent-background" style="padding: 20px;">
+            <div class="ml-auto">
+                <button type="button" class="btn-close btn-close-white btn-lg float-end" style="margin-bottom: 5px;" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <img [src]="selectedCard == null ? '' : selectedCard.image" />
         </div>
     </div>
 </div>

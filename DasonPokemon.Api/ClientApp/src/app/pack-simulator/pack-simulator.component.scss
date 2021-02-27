@@ -3,8 +3,8 @@
 }
 
   .pack-card {
-    width: 180px;
-    height: 260px;
+    //width: 180px;
+    //height: 260px;
     position: relative;
     transition: transform 1s;
     transform-style: preserve-3d;
@@ -26,3 +26,12 @@
   .pack-card.is-flipped {
     transform: rotateY(180deg);
   }
+  
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.transparent-background {
+  background-color: rgba(0,0,0,0);
+  border: none;
+}
