@@ -1,12 +1,25 @@
 <div class="dark-background content-section">
     <div class="card w-100 mb-4" *ngIf="!waitingForData">
         <div class="card-body">
-            <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
-                <ol class="breadcrumb mb-0">
-                  <li class="breadcrumb-item" [ngClass]="{ 'active': viewingSets, 'cursor-pointer': !viewingSets }"><a (click)="goToSets()">Sets</a></li>
-                  <li class="breadcrumb-item" *ngIf="viewingCardsInSet" [ngClass]="{ 'active': viewingCardsInSet }">{{ selectedSet!.name }}</li>
-                </ol>
-            </nav>
+            <div class="row">
+                <div class="col-9">
+                    <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;); height: 100%;" aria-label="breadcrumb">
+                        <ol class="breadcrumb mb-0" style="height: 100%;">
+                          <li class="breadcrumb-item" [ngClass]="{ 'active': viewingSets, 'cursor-pointer': !viewingSets }"><a [ngClass]="{ 'breadcrumb-link': viewingSets, 'breadcrumb-link-inactive': !viewingSets }" class="align-middle" (click)="goToSets()">Sets</a></li>
+                          <li class="breadcrumb-item" style="height: 100%;" *ngIf="viewingCardsInSet" [ngClass]="{ 'active': viewingCardsInSet }"><span class="align-middle">{{ selectedSet!.name }}</span></li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-3">
+                    <div class="ml-auto">
+                        <button type="button" class="btn btn-sm btn-secondary float-end">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -15,6 +28,8 @@
             <img src="/assets/pikachu_face.png" class="img-fluid box bounce-5" />
         </div>
     </div>
+
+    <input style="display: none;" type="text" [(ngModel)]="cardSearchText" name="cardSearch" />
 
     <div class="row text-center row-eq-height" style="color: #313131;" *ngIf="!waitingForData && viewingSets">
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 d-flex" style="margin-bottom: 25px;" *ngFor="let set of sortSetsBy('releaseDate')">

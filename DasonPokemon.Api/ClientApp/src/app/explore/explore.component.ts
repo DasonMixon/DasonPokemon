@@ -34,6 +34,8 @@ export class ExploreComponent implements OnInit {
   cards : Card[] = [];
   selectedCard : Card | null = null;
 
+  cardSearchText : string = "";
+
   httpClient : HttpClient;
 
   constructor(private http : HttpClient) {
@@ -90,10 +92,20 @@ export class ExploreComponent implements OnInit {
   }
 
   public sortCardsBy(prop: string) {
-    return this.cards.sort((a : any, b : any) => a[prop] > b[prop] ? 1 : a[prop] === b[prop] ? 0 : -1);
+    if (this.cardSearchText === "")
+      return this.cards.sort((a : any, b : any) => a[prop] > b[prop] ? 1 : a[prop] === b[prop] ? 0 : -1);
+    else
+      return this.searchCards().sort((a : Card, b : Card) => a.name.toLowerCase().indexOf(this.cardSearchText) > b.name.toLowerCase().indexOf(this.cardSearchText) ? 1 : a.name.toLowerCase().indexOf(this.cardSearchText) === b.name.toLowerCase().indexOf(this.cardSearchText) ? 0 : -1);
   }
 
   public zoomCard(card : Card) {
     this.selectedCard = card;
+  }
+
+  public searchCards() {
+    console.log("searching cards");
+    return this.cards.filter((item : Card) => {
+      return item.name.toLowerCase().includes(this.cardSearchText.toLowerCase());
+    });
   }
 }

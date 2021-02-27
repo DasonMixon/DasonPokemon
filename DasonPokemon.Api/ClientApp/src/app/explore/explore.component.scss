@@ -6,6 +6,16 @@
     color: #ca3e47;
 }
 
+.breadcrumb-link {
+    color: #ca3e47;
+    text-decoration: none;
+}
+
+.breadcrumb-link-inactive {
+    color: #313131;
+    text-decoration: none;
+}
+
 .cursor-pointer {
     cursor: pointer;
 }
@@ -14,3 +24,4 @@
     background-color: rgba(0,0,0,0);
     border: none;
 }
+
