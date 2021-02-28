@@ -67,7 +67,9 @@
             <div class="ml-auto">
                 <button type="button" class="btn-close btn-close-white btn-lg float-end" style="margin-bottom: 5px;" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <img [src]="selectedCard == null ? '' : selectedCard.image" />
+            <div class="d-flex" style="display: flex; align-items: flex-start;">
+                <img [src]="selectedCard == null ? '' : selectedCard.image" class="w-100 img-responsive align-middle" style="height: auto;" />
+            </div>
         </div>
     </div>
 </div>
