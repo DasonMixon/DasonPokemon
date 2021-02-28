@@ -13,10 +13,17 @@ namespace DasonPokemon.Core.Services
         private readonly ICardService _cardService;
         private readonly IMongoRepository<Set> _repository;
 
+        private readonly Dictionary<string, List<string>> PackToSetsMapping;
+
         public SetService(ICardService cardService, IMongoRepository<Set> repository)
         {
             _cardService = cardService;
             _repository = repository;
+
+            PackToSetsMapping = new Dictionary<string, List<string>> {
+                { "Shining Fates", new List<string> { "swsh45", "swsh45sv" } },
+                { "Vivid Voltage", new List<string> { "swsh4" } }
+            };
         }
 
         public async Task<Set> GetAsync(Guid id) =>
@@ -33,67 +40,6 @@ namespace DasonPokemon.Core.Services
         }
 
         public async Task BulkUpsert(IEnumerable<Set> sets) =>
-            await _repository.BulkUpsertAsync(sets);
-
-        public async Task<Pack> GeneratePack(Guid setId)
-        {
-            // 1 Rare or better guaranteed (sometimes 2)
-            // Generally 3 uncommon cards
-            // Rest are common
-
-            var setCards = await _cardService.GetAllFromSetAsync(setId);
-
-            var commonCards = setCards.Where(sc => sc.Rarity == "Common");
-            var uncommonCards = setCards.Where(sc => sc.Rarity == "Uncommon");
-
-            // Rare              1/10
-            // Rare Holo         1/20
-            // Rare Holo EX
-            // Rare Holo GX
-            // Rare Holo V       1/25
-            // Rare Holo VMAX    1/20
-            // Rare Ultra        1/50
-            // Amazing Rare      1/60
-            // Rare Rainbow      1/100
-            // Rare Secret
-            // Rare Shining
-            // Rare Shiny
-            // Rare Shiny GX
-
-
-
-            /*
-             "Amazing Rare",
-      "Common",
-      "LEGEND",
-      "Promo",
-      "Rare",
-      "Rare ACE",
-      "Rare BREAK",
-      "Rare Holo",
-      "Rare Holo EX",
-      "Rare Holo GX",
-      "Rare Holo LV.X",
-      "Rare Holo Star",
-      "Rare Holo V",
-      "Rare Holo VMAX",
-      "Rare Prime",
-      "Rare Prism Star",
-      "Rare Rainbow",
-      "Rare Secret",
-      "Rare Shining",
-      "Rare Shiny",
-      "Rare Shiny GX",
-      "Rare Ultra",
-      "Uncommon"
-             */
-            var rareCards = setCards.Except(commonCards).Except(uncommonCards);
-            
-
-            var rarities = setCards.Select(sc => sc.Rarity).Distinct();
-            var supertypes = setCards.Select(sc => sc.Supertype).Distinct();
-            var subtypes = setCards.Select(sc => sc.Subtypes).SelectMany(c => c).Distinct();
-            return null;
-        }
+            await _repository.BulkUpsertAsync(sets, true);
     }
 }

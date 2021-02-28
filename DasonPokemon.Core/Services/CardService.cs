@@ -31,6 +31,6 @@ namespace DasonPokemon.Core.Services
             await _repository.GetManyAsync(c => c.Set.Id == setId);
 
         public async Task BulkUpsert(IEnumerable<Card> cards) =>
-            await _repository.BulkUpsertAsync(cards);
+            await _repository.BulkUpsertAsync(cards, true);
     }
 }

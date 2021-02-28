@@ -11,6 +11,5 @@ namespace DasonPokemon.Core.Services
         Task<IEnumerable<Set>> GetAllAsync();
         Task BulkUpsert(IEnumerable<Set> sets);
         Task<IEnumerable<Set>> GetSetsWithMatchingExternalIds(IEnumerable<string> externalIds);
-        Task<Pack> GeneratePack(Guid setId);
     }
 }

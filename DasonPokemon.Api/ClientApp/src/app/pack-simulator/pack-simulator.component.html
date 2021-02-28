@@ -1,5 +1,12 @@
 <div class="dark-background content-section">
-    <div class="row text-center" *ngIf="state == 1">
+
+    <div class="card w-100 mb-4" *ngIf="state == 3 && !waitingForData">
+        <div class="card-body">
+            <button type="button" class="btn btn-success btn-lg w-100" (click)="openPack()">Open another!</button>
+        </div>
+    </div>
+
+    <div class="row text-center" *ngIf="state == 1 && !waitingForData">
         <div class="col col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2" *ngFor="let pack of packs">
             <a (click)="selectPack(pack)" style="cursor: pointer;">
                 <div class="card mb-5">
@@ -14,7 +21,7 @@
         </div>
     </div>
 
-    <div class="row text-center justify-content-center" *ngIf="state == 2">
+    <div class="row text-center justify-content-center" *ngIf="state == 2 && !waitingForData">
         <div class="col-xs-12 col-sm-8 col-md-6 col-lg-6 col-xl-4">
             <div class="card mb-5 mx-auto">
                 <div class="card-header" style="color: black;">
@@ -35,13 +42,13 @@
         </div>
     </div>
 
-    <div class="row text-center"  *ngIf="state == 3 && waitingForPackResults">
+    <div class="row text-center"  *ngIf="waitingForData">
         <div style="margin-top: 150px;">
             <img src="/assets/pikachu_face.png" class="img-fluid box bounce-5" />
         </div>
     </div>
 
-    <div class="row text-center" *ngIf="state == 3 && !waitingForPackResults">
+    <div class="row text-center" *ngIf="state == 3 && !waitingForData">
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 d-flex" *ngFor="let card of selectedPack!.cards" style="margin-bottom: 15px;">
             <div class="scene mx-auto w-100">
                 <div class="pack-card cursor-pointer" (click)="flipCard(card)" [ngClass]="{ 'is-flipped': card.flipped}">

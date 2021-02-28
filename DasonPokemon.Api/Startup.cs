@@ -39,6 +39,7 @@ namespace DasonPokemon.Api
             services.AddSingleton<ICardService, CardService>();
             services.AddSingleton<ISetService, SetService>();
             services.AddSingleton<IDataRefreshService, DataRefreshService>();
+            services.AddSingleton<IPackService, PackService>();
 
             services.AddMongoRepositories(Configuration.GetConnectionString("mongo"))
                     // Registers all classes that implement IMongoRepository<> or IMongoEntityConfiguration<>

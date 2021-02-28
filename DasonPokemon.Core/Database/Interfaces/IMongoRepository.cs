@@ -65,6 +65,6 @@ namespace MongoDB.Extensions.Repository.Interfaces
         /// <returns></returns>
         Task<TEntity> ReplaceAsync(TEntity entity, CancellationToken cancellationToken = default);
 
-        Task<BulkWriteResult<TEntity>> BulkUpsertAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default);
+        Task<BulkWriteResult<TEntity>> BulkUpsertAsync(IEnumerable<TEntity> entities, bool useExternalId = false, CancellationToken cancellationToken = default);
     }
 }

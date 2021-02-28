@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 enum PackSimState {
   PackList = 1,
@@ -18,6 +19,7 @@ interface Card {
   id: string;
   name: string;
   image: string;
+  nonRare: boolean;
   flipped: boolean;
 }
 
@@ -30,19 +32,29 @@ export class PackSimulatorComponent implements OnInit {
 
   state : PackSimState = PackSimState.PackList;
 
-  packs : Pack[];
+  packs : Pack[] = [];
 
   selectedPack : Pack | null;
   selectedCard : Card | null;
-  waitingForPackResults : boolean = false;
+  waitingForData : boolean = false;
 
-  constructor() {
+  httpClient : HttpClient;
 
-    // TODO: Should be getting pack list from backend
-    this.packs = [
-      { id: '1', name: 'Shining Fates', image : '/assets/shining_fates_pack.jpg', cards: [] },
-      { id: '2', name: 'Vivid Voltage', image : '/assets/vivid_voltage_pack.jpg', cards: [] }
-    ];
+  constructor(private http : HttpClient) {
+    this.httpClient = http;
+
+    this.waitingForData = true;
+    this.httpClient.get("api/packs").subscribe((data: any) => {
+      this.packs = data.map((item : any) => {
+        return {
+          id: item.id,
+          name: item.name,
+          image: item.image
+        };
+      });
+      console.log(this.packs);
+      this.waitingForData = false;
+    });
 
     this.selectedPack = null;
     this.selectedCard = null;
@@ -57,29 +69,33 @@ export class PackSimulatorComponent implements OnInit {
   }
 
   public openPack() {
-    this.waitingForPackResults = true;
+    this.waitingForData = true;
     this.state = PackSimState.PackOpening;
 
     // Make call to backend and ask for a pack opening for the selected pack
+    this.httpClient.get("api/packs/generate/" + this.selectedPack!.id).subscribe((data: any) => {
+      this.selectedPack!.cards = data.map((item : any) => {
+        return {
+          id: item.id,
+          name: item.name,
+          image: item.images['large'],
+          flipped: false,
+          nonRare: item.rarity === "Common" || item.rarity === "Uncommon"
+        };
+      });
+      console.log(this.selectedPack!.cards);
+      this.waitingForData = false;
 
-    // For now, gonna just return some dummy data
-    this.selectedPack!.cards = [
-      { id: '1', name: 'someCard1', image: 'https://images.pokemontcg.io/swsh4/188_hires.png', flipped: false },
-      { id: '2', name: 'someCard2', image: 'https://images.pokemontcg.io/swsh4/188_hires.png', flipped: false },
-      { id: '3', name: 'someCard3', image: 'https://images.pokemontcg.io/swsh4/188_hires.png', flipped: false },
-      { id: '4', name: 'someCard4', image: 'https://images.pokemontcg.io/swsh4/188_hires.png', flipped: false },
-      { id: '5', name: 'someCard5', image: 'https://images.pokemontcg.io/swsh4/188_hires.png', flipped: false },
-      { id: '6', name: 'someCard6', image: 'https://images.pokemontcg.io/swsh4/188_hires.png', flipped: false },
-      { id: '7', name: 'someCard7', image: 'https://images.pokemontcg.io/swsh4/188_hires.png', flipped: false },
-      { id: '8', name: 'someCard8', image: 'https://images.pokemontcg.io/swsh4/188_hires.png', flipped: false },
-      { id: '9', name: 'someCard9', image: 'https://images.pokemontcg.io/swsh4/188_hires.png', flipped: false },
-      { id: '10', name: 'someCard10', image: 'https://images.pokemontcg.io/swsh4/188_hires.png', flipped: false },
-    ];
-
-    setTimeout(() => {
-      this.waitingForPackResults = false;
-    }, 3000);
-
+      let currentTimeout = 250;
+      for(let i = 0; i < this.selectedPack!.cards.length; i++) {
+        if (this.selectedPack!.cards[i].nonRare) {
+          setTimeout(() => {
+            this.selectedPack!.cards[i].flipped = true;
+          }, currentTimeout);
+          currentTimeout = currentTimeout + 250;
+        }
+      }
+    });
   }
 
   public goBack() {

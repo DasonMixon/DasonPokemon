@@ -110,7 +110,7 @@ namespace MongoDB.Extensions.Repository
         }
 
         // TODO: Need a cleaner way of handling this, anytime we update data from tcg api we have to match based on their id
-        public virtual async Task<BulkWriteResult<TEntity>> BulkUpsertAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
+        public virtual async Task<BulkWriteResult<TEntity>> BulkUpsertAsync(IEnumerable<TEntity> entities, bool useExternalId = false, CancellationToken cancellationToken = default)
         {
             if (entities == null)
             {
@@ -126,10 +126,21 @@ namespace MongoDB.Extensions.Repository
 
             foreach (var entity in entities)
             {
-                var upsertOne = new ReplaceOneModel<TEntity>(
+                ReplaceOneModel<TEntity> upsertOne;
+                if (useExternalId)
+                {
+                    upsertOne = new ReplaceOneModel<TEntity>(
                     Builders<TEntity>.Filter.Where(x => x.ExternalId == entity.ExternalId),
                     entity)
-                { IsUpsert = true };
+                    { IsUpsert = true };
+                } else
+                {
+                    upsertOne = new ReplaceOneModel<TEntity>(
+                    Builders<TEntity>.Filter.Where(x => x.Id == entity.Id),
+                    entity)
+                    { IsUpsert = true };
+                }
+
                 bulkOps.Add(upsertOne);
             }
 

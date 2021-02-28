@@ -16,17 +16,19 @@ namespace DasonPokemon.Core.Services
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly ICardService _cardService;
         private readonly ISetService _setService;
+        private readonly IPackService _packService;
         private readonly ILogger<DataRefreshService> _logger;
         private readonly IMapper _mapper;
 
         public DataRefreshService(IHttpClientFactory httpClientFactory, ICardService cardService, ISetService setService, ILogger<DataRefreshService> logger,
-            IMapper mapper)
+            IMapper mapper, IPackService packService)
         {
             _httpClientFactory = httpClientFactory;
             _cardService = cardService;
             _setService = setService;
             _logger = logger;
             _mapper = mapper;
+            _packService = packService;
         }
 
         // TODO: After seeing what I had to do here, we need to switch to just using EF with a relational DB... Also I think it makes more sense to just own the data ourselves instead of getting from one API and trying to import it to this one just so that we can add a few more fields
@@ -38,6 +40,9 @@ namespace DasonPokemon.Core.Services
                 sw.Start();
 
                 _logger.LogInformation("Starting data refresh");
+
+                // First lets grab all the packs we support so that when we load the sets we can map their ids to these pack definitions
+                var existingPacks = (await _packService.GetAllPacks()).ToList();
 
                 var setIds = new Dictionary<string, Guid>();
 
@@ -64,6 +69,18 @@ namespace DasonPokemon.Core.Services
 
                             if (!setIds.ContainsKey(setGroup.NewSet.ExternalId))
                                 setIds.Add(setGroup.NewSet.ExternalId, setGroup.NewSet.Id);
+
+                            // Check if this set belongs to one of the pack definitions, if it does add the id to it
+                            var packWithThisSet = existingPacks.SingleOrDefault(p => p.ExternalSetIds.Contains(setGroup.NewSet.ExternalId));
+                            if (packWithThisSet != null)
+                            {
+                                if (!packWithThisSet.SetIds.Contains(setGroup.NewSet.Id))
+                                {
+                                    var packSetIds = packWithThisSet.SetIds.ToList();
+                                    packSetIds.Add(setGroup.NewSet.Id);
+                                    packWithThisSet.SetIds = packSetIds;
+                                }
+                            }
                         }
 
                         // Bulk upsert
@@ -105,6 +122,9 @@ namespace DasonPokemon.Core.Services
                         // Bulk upsert
                         await _cardService.BulkUpsert(upsertingCards.Select(uc => uc.NewCard));
                     });
+
+                // Now let's bulk upsert the existing packs that may have been modified
+                await _packService.BulkUpsert(existingPacks);
 
                 sw.Stop();
 
