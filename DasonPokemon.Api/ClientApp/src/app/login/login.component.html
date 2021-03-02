@@ -1,0 +1,100 @@
+<div class="dark-background content-section">
+    <div class="row d-flex align-items-center justify-content-center">
+        <div class="col-lg-10 col-xl-10 col-xxl-8">
+            <div class="card mb-3 w-100 shadow" style="border: 0px; color: #000; border-radius: 1em;">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img class="login-image" src="/assets/home_slide_1.jpg" alt="..." style="object-fit: cover;" height="100%" width="100%">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body" *ngIf="!register">
+                            <h5 class="card-title">Login</h5>
+                            <form [formGroup]="loginForm" (ngSubmit)="onSubmitLogin()">
+                                <div class="mb-3">
+                                    <label for="loginEmail" class="form-label">Email address</label>
+                                    <input type="email" class="form-control" id="loginEmail" formControlName="email" [ngClass]="{ 'is-invalid': loginEmailInvalid }" required>
+
+                                    <div *ngIf="loginEmailInvalid" class="invalid-feedback">
+                                        <div *ngIf="loginEmail!.errors!.required">
+                                            Please provide an email.
+                                        </div>
+                                        <div *ngIf="loginEmail!.errors!.pattern">
+                                            Please provide a valid email.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="loginPassword" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="loginPassword" formControlName="password" [ngClass]="{ 'is-invalid': loginPasswordInvalid }"  required>
+
+                                    <div *ngIf="loginPasswordInvalid" class="invalid-feedback">
+                                        <div *ngIf="loginPassword!.errors!.required">
+                                            Please provide a password.
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary mb-3">Login</button>
+                                <div>
+                                    <span [routerLink]="" (click)="ToggleLoginOrRegister()" style="cursor: pointer;">Don't have an account? Register here!</span>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="card-body" *ngIf="register">
+                            <h5 class="card-title">Register</h5>
+                            <form [formGroup]="registerForm" (ngSubmit)="onSubmitRegister()">
+                                <div class="mb-3">
+                                    <label for="registerFirstName" class="form-label">First name</label>
+                                    <input type="text" class="form-control" id="registerFirstName" formControlName="firstName" [ngClass]="{ 'is-invalid': registerFirstNameInvalid }" required>
+
+                                    <div *ngIf="registerFirstNameInvalid" class="invalid-feedback">
+                                        <div *ngIf="registerFirstName!.errors!.required">
+                                            Please provide a first name.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="registerLastName" class="form-label">Last name</label>
+                                    <input type="text" class="form-control" id="registerLastName" formControlName="lastName" [ngClass]="{ 'is-invalid': registerLastNameInvalid }" required>
+
+                                    <div *ngIf="registerLastNameInvalid" class="invalid-feedback">
+                                        <div *ngIf="registerLastName!.errors!.required">
+                                            Please provide a last name.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="registerEmail" class="form-label">Email address</label>
+                                    <input type="email" class="form-control" id="registerEmail" formControlName="email" [ngClass]="{ 'is-invalid': registerEmailInvalid }"  required>
+
+                                    <div *ngIf="registerEmailInvalid" class="invalid-feedback">
+                                        <div *ngIf="registerEmail!.errors!.required">
+                                            Please provide an email.
+                                        </div>
+                                        <div *ngIf="registerEmail!.errors!.pattern">
+                                            Please provide a valid email.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="registerPassword" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="registerPassword" formControlName="password" [ngClass]="{ 'is-invalid': registerPasswordInvalid }"  required>
+
+                                    <div *ngIf="registerPasswordInvalid" class="invalid-feedback">
+                                        <div *ngIf="registerPassword!.errors!.required">
+                                            Please provide a password.
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary mb-3">Register</button>
+                                <div>
+                                    <span [routerLink]="" (click)="ToggleLoginOrRegister()" style="cursor: pointer;">Already have an account? Login here!</span>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
