@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 
@@ -14,7 +15,11 @@ export class LoginComponent implements OnInit {
   registerForm : FormGroup;
   formBuilder : FormBuilder = new FormBuilder();
 
-  constructor() {
+  httpClient : HttpClient;
+
+  constructor(http : HttpClient) {
+    this.httpClient = http;
+
     this.loginForm = this.formBuilder.group({
       email: new FormControl('', { validators: Validators.compose([
         Validators.required,
@@ -46,7 +51,16 @@ export class LoginComponent implements OnInit {
 
   public onSubmitRegister() {
     if (this.registerForm.valid) {
-      console.log('form submitted');
+      this.httpClient.post("api/users/create", {
+        email: this.registerEmail?.value,
+        firstName: this.registerFirstName?.value,
+        lastName: this.registerLastName?.value,
+        password: this.registerPassword?.value
+      }).subscribe((data : any) => {
+        console.log(data);
+      }, (error : any) => {
+        console.log(error);
+      });
     } else {
       this.validateAllFormFields(this.registerForm);
     }
@@ -54,7 +68,14 @@ export class LoginComponent implements OnInit {
 
   public onSubmitLogin() {
     if (this.loginForm.valid) {
-      console.log('form submitted');
+      this.httpClient.post("api/users/login", {
+        email: this.registerEmail?.value,
+        password: this.registerPassword?.value
+      }).subscribe((data : any) => {
+        console.log(data);
+      }, (error : any) => {
+        console.log(error);
+      });
     } else {
       this.validateAllFormFields(this.loginForm);
     }

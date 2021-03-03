@@ -1,5 +1,7 @@
 ﻿using System;
 using AutoMapper;
+using DasonPokemon.Core.Entities;
+using DasonPokemon.Core.Models;
 
 namespace DasonPokemon.Api
 {
@@ -75,6 +77,15 @@ namespace DasonPokemon.Api
                 .ForMember(d => d.ReleaseDate, s => s.MapFrom(src => DateTime.SpecifyKind(DateTime.Parse(src.ReleaseDate), DateTimeKind.Utc)))
                 .ForMember(d => d.Series, s => s.MapFrom(src => src.Series))
                 .ForMember(d => d.Total, s => s.MapFrom(src => src.Total))
+                .ForMember(d => d.Id, s => s.MapFrom(src => Guid.NewGuid()));
+
+            CreateMap<UserServiceModel, User>()
+                .ForMember(d => d.Email, s => s.MapFrom(src => src.Email))
+                .ForMember(d => d.FirstName, s => s.MapFrom(src => src.FirstName))
+                .ForMember(d => d.LastName, s => s.MapFrom(src => src.LastName))
+                .ForMember(d => d.PTCGOAccountId, s => s.MapFrom(src => src.PTCGOAccountId))
+                .ForMember(d => d.Hash, s => s.Ignore())
+                .ForMember(d => d.ExternalId, s => s.Ignore())
                 .ForMember(d => d.Id, s => s.MapFrom(src => Guid.NewGuid()));
         }
     }
