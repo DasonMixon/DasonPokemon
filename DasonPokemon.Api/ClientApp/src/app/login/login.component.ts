@@ -51,16 +51,13 @@ export class LoginComponent implements OnInit {
 
   public onSubmitRegister() {
     if (this.registerForm.valid) {
-      this.httpClient.post("api/users/create", {
-        email: this.registerEmail?.value,
-        firstName: this.registerFirstName?.value,
-        lastName: this.registerLastName?.value,
-        password: this.registerPassword?.value
-      }).subscribe((data : any) => {
-        console.log(data);
-      }, (error : any) => {
-        console.log(error);
-      });
+      this.httpClient.post("api/users/create", this.registerForm.value)
+        .subscribe((data : any) => {
+          console.log(data);
+          location.reload();
+        }, (error : any) => {
+          console.log(error);
+        });
     } else {
       this.validateAllFormFields(this.registerForm);
     }
@@ -68,14 +65,13 @@ export class LoginComponent implements OnInit {
 
   public onSubmitLogin() {
     if (this.loginForm.valid) {
-      this.httpClient.post("api/users/login", {
-        email: this.registerEmail?.value,
-        password: this.registerPassword?.value
-      }).subscribe((data : any) => {
-        console.log(data);
-      }, (error : any) => {
-        console.log(error);
-      });
+      this.httpClient.post("api/users/login", this.loginForm.value)
+        .subscribe((data : any) => {
+          console.log(data);
+          location.reload();
+        }, (error : any) => {
+          console.log(error);
+        });
     } else {
       this.validateAllFormFields(this.loginForm);
     }

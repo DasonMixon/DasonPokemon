@@ -1,4 +1,5 @@
 using DasonPokemon.Core.Services;
+using DasonPokemon.Core.Services.UserService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
@@ -40,6 +41,7 @@ namespace DasonPokemon.Api
             services.AddSingleton<ISetService, SetService>();
             services.AddSingleton<IDataRefreshService, DataRefreshService>();
             services.AddSingleton<IPackService, PackService>();
+            services.AddSingleton<IUserService, UserService>();
 
             services.AddMongoRepositories(Configuration.GetConnectionString("mongo"))
                     // Registers all classes that implement IMongoRepository<> or IMongoEntityConfiguration<>
