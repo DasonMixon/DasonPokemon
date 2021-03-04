@@ -5,7 +5,6 @@ import { ExploreComponent } from './explore/explore.component';
 import { HomeComponent } from './home/home.component';
 import { PackSimulatorComponent } from './pack-simulator/pack-simulator.component';
 import { TournamentComponent } from './tournament/tournament.component';
-import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
   { path: '',   redirectTo: '/home', pathMatch: 'full' },
@@ -13,8 +12,7 @@ const routes: Routes = [
   { path: 'explore', component: ExploreComponent },
   { path: 'packsim', component: PackSimulatorComponent },
   { path: 'deckdraft', component: DeckDraftingComponent },
-  { path: 'tournament', component: TournamentComponent },
-  { path: 'login', component: LoginComponent }
+  { path: 'tournament', component: TournamentComponent }
 ];
 
 @NgModule({

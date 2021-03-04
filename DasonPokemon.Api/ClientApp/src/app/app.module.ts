@@ -10,7 +10,8 @@ import { ExploreComponent } from './explore/explore.component';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LoginComponent } from './login/login.component';
+import { AuthModule } from '@auth0/auth0-angular';
+import { AuthButtonComponent } from './auth-button/auth-button.component';
 
 @NgModule({
   declarations: [
@@ -20,14 +21,18 @@ import { LoginComponent } from './login/login.component';
     DeckDraftingComponent,
     TournamentComponent,
     ExploreComponent,
-    LoginComponent
+    AuthButtonComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AuthModule.forRoot({
+      domain: 'das-pokemon.us.auth0.com',
+      clientId: 'oRppRaGAm6nmgm7OCyagMVe3tkXBaGFx'
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]
