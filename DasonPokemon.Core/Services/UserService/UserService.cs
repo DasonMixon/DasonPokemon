@@ -18,6 +18,9 @@ namespace DasonPokemon.Core.Services.UserService
             _cardService = cardService;
         }
 
+        public async Task<User> GetUser(Guid id) =>
+            await _repository.GetAsync(id);
+
         public async Task<LinkUserResult> LinkAccount(LinkAccountServiceModel link)
         {
             if (link.Email == null || link.Email == "")

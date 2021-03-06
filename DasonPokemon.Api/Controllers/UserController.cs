@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using DasonPokemon.Core.Models;
 using DasonPokemon.Core.Services.UserService;
 using Microsoft.AspNetCore.Mvc;
@@ -14,6 +15,13 @@ namespace DasonPokemon.Api.Controllers
         public UserController(IUserService userService)
         {
             _userService = userService;
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult> GetUser(Guid id)
+        {
+            var result = await _userService.GetUser(id);
+            return result == null ? NotFound() : Ok();
         }
 
         [HttpPost("linkAccount")]

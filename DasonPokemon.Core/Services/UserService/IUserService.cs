@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
+using DasonPokemon.Core.Entities;
 using DasonPokemon.Core.Models;
 
 namespace DasonPokemon.Core.Services.UserService
@@ -7,5 +9,6 @@ namespace DasonPokemon.Core.Services.UserService
     {
         Task<LinkUserResult> LinkAccount(LinkAccountServiceModel link);
         Task UpdateCollection(CollectionServiceModel collection);
+        Task<User> GetUser(Guid id);
     }
 }
