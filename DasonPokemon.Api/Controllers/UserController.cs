@@ -22,5 +22,12 @@ namespace DasonPokemon.Api.Controllers
             var result = await _userService.LinkAccount(link);
             return result.WasSuccessful ? Ok() : BadRequest(result.FailureReason);
         }
+
+        [HttpPost("updateCollection")]
+        public async Task<ActionResult> UpdateCollectionList(CollectionServiceModel collection)
+        {
+            await _userService.UpdateCollection(collection);
+            return Ok();
+        }
     }
 }

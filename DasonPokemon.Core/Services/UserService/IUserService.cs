@@ -6,5 +6,6 @@ namespace DasonPokemon.Core.Services.UserService
     public interface IUserService
     {
         Task<LinkUserResult> LinkAccount(LinkAccountServiceModel link);
+        Task UpdateCollection(CollectionServiceModel collection);
     }
 }
