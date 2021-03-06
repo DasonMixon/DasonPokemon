@@ -6,8 +6,5 @@ namespace DasonPokemon.Core.Entities
     {
         public string Email { get; set; }
         public string PTCGOAccountId { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Hash { get; set; }
     }
 }

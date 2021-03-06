@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthModule } from '@auth0/auth0-angular';
 import { AuthButtonComponent } from './auth-button/auth-button.component';
+import { LinkPtcgoAccountComponent } from './link-ptcgo-account/link-ptcgo-account.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { AuthButtonComponent } from './auth-button/auth-button.component';
     DeckDraftingComponent,
     TournamentComponent,
     ExploreComponent,
-    AuthButtonComponent
+    AuthButtonComponent,
+    LinkPtcgoAccountComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +33,8 @@ import { AuthButtonComponent } from './auth-button/auth-button.component';
     ReactiveFormsModule,
     AuthModule.forRoot({
       domain: 'das-pokemon.us.auth0.com',
-      clientId: 'oRppRaGAm6nmgm7OCyagMVe3tkXBaGFx'
+      clientId: 'oRppRaGAm6nmgm7OCyagMVe3tkXBaGFx',
+      redirectUri: window.location.origin
     }),
   ],
   providers: [],

@@ -16,17 +16,10 @@ namespace DasonPokemon.Api.Controllers
             _userService = userService;
         }
 
-        [HttpPost("create")]
-        public async Task<ActionResult> CreateUser(UserServiceModel user)
+        [HttpPost("linkAccount")]
+        public async Task<ActionResult> LinkAccount(LinkAccountServiceModel link)
         {
-            var result = await _userService.CreateUser(user);
-            return result.WasSuccessful ? Ok() : BadRequest(result.FailureReason);
-        }
-
-        [HttpPost("login")]
-        public async Task<ActionResult> Login(UserServiceModel user)
-        {
-            var result = await _userService.Authenticate(user.Email, user.Password);
+            var result = await _userService.LinkAccount(link);
             return result.WasSuccessful ? Ok() : BadRequest(result.FailureReason);
         }
     }
