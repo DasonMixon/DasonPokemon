@@ -19,19 +19,19 @@ namespace DasonPokemon.Core.EntityConfigurations
                 SetIds = new List<Guid>(), // These will be populated by the data refresh
                 ExternalSetIds = new List<string> { "swsh45", "swsh45sv" },
                 ExternalId = null,
-                RarityRates = new Dictionary<string, double>
+                RarityRates = new Dictionary<Enums.CardRarity, double>
                 {
-                    { "Common", 1 }, // Each common has same chance to be pulled across the board
-                    { "Uncommon", 1 }, // Each uncommon has same chance to be pulled across the board
-                    { "Rare", 60.12 },
-                    { "Rare Holo", 16.76 },
-                    { "Rare Holo V", 12.41 },
-                    { "Rare Shiny", 10 },
-                    { "Rare Holo VMAX", 4.17 },
-                    { "Rare Ultra", 2.88 },
-                    { "Amazing Rare", 5.17 },
-                    { "Rare Rainbow", 1.42 },
-                    { "Rare Secret", 0.51 }
+                    { Enums.CardRarity.Common, 1 }, // Each common has same chance to be pulled across the board
+                    { Enums.CardRarity.Uncommon, 1 }, // Each uncommon has same chance to be pulled across the board
+                    { Enums.CardRarity.Rare, 60.12 },
+                    { Enums.CardRarity.RareHolo, 16.76 },
+                    { Enums.CardRarity.RareHoloV, 12.41 },
+                    { Enums.CardRarity.RareShiny, 10 },
+                    { Enums.CardRarity.RareHoloVMax, 4.17 },
+                    { Enums.CardRarity.RareUltra, 2.88 },
+                    { Enums.CardRarity.AmazingRare, 5.17 },
+                    { Enums.CardRarity.RareRainbow, 1.42 },
+                    { Enums.CardRarity.RareSecret, 0.51 }
                 },
                 Image = "/assets/shining_fates_pack.jpg"
             });
@@ -44,18 +44,18 @@ namespace DasonPokemon.Core.EntityConfigurations
                 ExternalSetIds = new List<string> { "swsh4" },
                 ExternalId = null,
                 Image = "/assets/vivid_voltage_pack.jpg",
-                RarityRates = new Dictionary<string, double>
+                RarityRates = new Dictionary<Enums.CardRarity, double>
                 {
-                    { "Common", 1 }, // Each common has same chance to be pulled across the board
-                    { "Uncommon", 1 }, // Each uncommon has same chance to be pulled across the board
-                    { "Rare", 60.12 },
-                    { "Rare Holo", 16.76 },
-                    { "Rare Holo V", 12.41 },
-                    { "Rare Holo VMAX", 4.17 },
-                    { "Rare Ultra", 2.88 },
-                    { "Amazing Rare", 5.17 },
-                    { "Rare Rainbow", 1.42 },
-                    { "Rare Secret", 0.51 }
+                    { Enums.CardRarity.Common, 1 }, // Each common has same chance to be pulled across the board
+                    { Enums.CardRarity.Uncommon, 1 }, // Each uncommon has same chance to be pulled across the board
+                    { Enums.CardRarity.Rare, 60.12 },
+                    { Enums.CardRarity.RareHolo, 16.76 },
+                    { Enums.CardRarity.RareHoloV, 12.41 },
+                    { Enums.CardRarity.RareHoloVMax, 4.17 },
+                    { Enums.CardRarity.RareUltra, 2.88 },
+                    { Enums.CardRarity.AmazingRare, 5.17 },
+                    { Enums.CardRarity.RareRainbow, 1.42 },
+                    { Enums.CardRarity.RareSecret, 0.51 }
                 }
             });
         }

@@ -1,4 +1,5 @@
-﻿using DasonPokemon.Core.Entities;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson.Serialization.Options;
 using MongoDB.Extensions.Repository.Models;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,8 @@ namespace DasonPokemon.Core
         public IEnumerable<Guid> SetIds { get; set; }
         public IEnumerable<string> ExternalSetIds { get; set; }
         // public IEnumerable<Card> Cards { get; set; } TODO: Make a PackOpening class or something that has list of cards that were pulled for the pack, no need to store this
-        public Dictionary<string, double> RarityRates { get; set; }
+        [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfDocuments)]
+        public Dictionary<Enums.CardRarity, double> RarityRates { get; set; }
         public string Image { get; set; }
     }
 }

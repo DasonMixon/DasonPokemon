@@ -70,8 +70,8 @@ namespace DasonPokemon.Core.Services
                 totalCards.AddRange(Enumerable.Repeat(card, (int)Math.Ceiling(pullRate)));
             }
 
-            var commons = totalCards.Where(c => c.Rarity.Equals("Common", StringComparison.InvariantCultureIgnoreCase));
-            var uncommons = totalCards.Where(c => c.Rarity.Equals("Uncommon", StringComparison.InvariantCultureIgnoreCase));
+            var commons = totalCards.Where(c => c.Rarity.Equals(Enums.CardRarity.Common));
+            var uncommons = totalCards.Where(c => c.Rarity.Equals(Enums.CardRarity.Uncommon));
             var rares = totalCards.Except(commons).Except(uncommons).ToList();
 
             // Now we grab the cards for the pack opening. Start with the guaranteed rare
@@ -79,8 +79,8 @@ namespace DasonPokemon.Core.Services
             results.AddRange(rareCard);
             rares.Remove(rareCard.Single());
 
-            // Roll 1/5 to see if they get a second rare
-            var getSecondRare = PackExtensions.RollBetweenOneAnd(5);
+            // Roll 1/8 to see if they get a second rare
+            var getSecondRare = PackExtensions.RollBetweenOneAnd(8);
             if (getSecondRare)
             {
                 var secondRareCard = rares.GetRandom(1);
@@ -96,10 +96,12 @@ namespace DasonPokemon.Core.Services
             var commonCards = commons.GetRandom(10 - results.Count);
             results.AddRange(commonCards);
 
+            // TODO: One of the common slots should be a random basic energy, but I have to figure out where energies are pulled from per pack
+
             // And finally we want to order the cards properly
-            var commonResults = results.Where(c => c.Rarity.Equals("Common", StringComparison.InvariantCultureIgnoreCase));
-            var uncommonResults = results.Where(c => c.Rarity.Equals("Uncommon", StringComparison.InvariantCultureIgnoreCase));
-            var rareResults = results.Except(commonResults).Except(uncommonResults);
+            var commonResults = results.Where(c => c.Rarity.Equals(Enums.CardRarity.Common));
+            var uncommonResults = results.Where(c => c.Rarity.Equals(Enums.CardRarity.Uncommon));
+            var rareResults = results.Except(commonResults).Except(uncommonResults).OrderBy(r => r.Rarity);
 
             return commonResults.Concat(uncommonResults).Concat(rareResults);
         }

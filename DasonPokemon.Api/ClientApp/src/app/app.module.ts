@@ -13,6 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthModule } from '@auth0/auth0-angular';
 import { AuthButtonComponent } from './auth-button/auth-button.component';
 import { LinkPtcgoAccountComponent } from './link-ptcgo-account/link-ptcgo-account.component';
+import { CompleteAccountComponent } from './complete-account/complete-account.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { LinkPtcgoAccountComponent } from './link-ptcgo-account/link-ptcgo-accou
     TournamentComponent,
     ExploreComponent,
     AuthButtonComponent,
-    LinkPtcgoAccountComponent
+    LinkPtcgoAccountComponent,
+    CompleteAccountComponent
   ],
   imports: [
     BrowserModule,

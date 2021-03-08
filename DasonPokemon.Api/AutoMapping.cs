@@ -81,7 +81,6 @@ namespace DasonPokemon.Api
 
             CreateMap<UserServiceModel, User>()
                 .ForMember(d => d.Email, s => s.MapFrom(src => src.Email))
-                .ForMember(d => d.PTCGOAccountId, s => s.MapFrom(src => src.PTCGOAccountId))
                 .ForMember(d => d.ExternalId, s => s.Ignore())
                 .ForMember(d => d.Id, s => s.MapFrom(src => Guid.NewGuid()));
         }

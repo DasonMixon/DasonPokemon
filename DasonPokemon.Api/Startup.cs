@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using DasonPokemon.Core;
 using DasonPokemon.Core.Services;
 using DasonPokemon.Core.Services.UserService;
 using Microsoft.AspNetCore.Builder;
@@ -8,6 +10,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Options;
+using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Extensions.Repository;
 using MongoDB.Extensions.Repository.Extensions;
 
@@ -95,6 +100,12 @@ namespace DasonPokemon.Api
       //https://jira.mongodb.org/browse/CSHARP-3195
       BsonDefaults.GuidRepresentation = GuidRepresentation.Standard;
 #pragma warning restore CS0618 // Type or member is obsolete
+
+            var keySerializer = new EnumSerializer<Enums.CardRarity>(BsonType.String);
+            var valueSerializer = new DoubleSerializer();
+            var packRaritiesSerializer = new DictionaryInterfaceImplementerSerializer<Dictionary<Enums.CardRarity, double>>(
+                DictionaryRepresentation.Document, keySerializer, valueSerializer);
+            BsonSerializer.RegisterSerializer(packRaritiesSerializer);
         }
     }
 }

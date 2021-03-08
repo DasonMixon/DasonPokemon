@@ -21,6 +21,36 @@ namespace DasonPokemon.Core.Services.UserService
         public async Task<User> GetUser(Guid id) =>
             await _repository.GetAsync(id);
 
+        public async Task<User> GetUser(string email) =>
+            (await _repository.GetManyAsync(u => u.Email == email)).SingleOrDefault();
+
+        public async Task<User> Create(UserServiceModel user)
+        {
+            var newUser = new User
+            {
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName
+            };
+
+            return await CreateUser(newUser);
+        }
+
+        private async Task<User> CreateUser(User user)
+        {
+            if (user.Id.Equals(Guid.Empty))
+                user.Id = Guid.NewGuid();
+
+            if (user.FirstName == null || user.FirstName == "" || user.LastName == null || user.LastName == "")
+            {
+                user.NeedsFinalized = true;
+            }
+
+            await _repository.AddAsync(user);
+
+            return user;
+        }
+
         public async Task<LinkUserResult> LinkAccount(LinkAccountServiceModel link)
         {
             if (link.Email == null || link.Email == "")
@@ -32,9 +62,7 @@ namespace DasonPokemon.Core.Services.UserService
             var existingUser = (await _repository.GetManyAsync(u => u.Email == link.Email)).SingleOrDefault();
             if (existingUser == null)
             {
-                // Create the user
-                var newUser = new User { Id = Guid.NewGuid(), Email = link.Email, PTCGOAccountId = link.AccountId };
-                await _repository.AddAsync(newUser);
+                await CreateUser(new User { Email = link.Email, PTCGOAccountId = link.AccountId });
             } else
             {
                 // Update the user

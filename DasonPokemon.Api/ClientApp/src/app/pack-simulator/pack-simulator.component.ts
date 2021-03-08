@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { CardRarity } from './../types/card-rarity';
 
 enum PackSimState {
   PackList = 1,
@@ -80,7 +81,7 @@ export class PackSimulatorComponent implements OnInit {
           name: item.name,
           image: item.images['large'],
           flipped: false,
-          nonRare: item.rarity === "Common" || item.rarity === "Uncommon"
+          nonRare: item.rarity === CardRarity.Common || item.rarity === CardRarity.Uncommon
         };
       });
       console.log(this.selectedPack!.cards);

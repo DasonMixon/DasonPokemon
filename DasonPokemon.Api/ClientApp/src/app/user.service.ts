@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LocalStorageService } from './local-storage.service';
-import { Observable, of } from 'rxjs'
+import { Observable, of } from 'rxjs';
+import { User } from './types/user';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,10 @@ export class UserService {
 
   public setUserId(id : string) {
     this.userId = id;
+  }
+
+  public getUserByEmail(email : string) : Observable<User> {
+    return this.storage.getOrFetch('user', this.http.get<User>(`api/user/byEmail/${email}`));
   }
 
   public getUser(id : string | null = this.userId) : Observable<User> {

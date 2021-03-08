@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Extensions.Repository.Models;
 
 namespace DasonPokemon.Core.Entities
@@ -36,7 +38,8 @@ namespace DasonPokemon.Core.Entities
 
         public string Artist { get; set; }
 
-        public string Rarity { get; set; }
+        [BsonRepresentation(BsonType.String)]
+        public Enums.CardRarity Rarity { get; set; }
 
         public string FlavorText { get; set; }
 

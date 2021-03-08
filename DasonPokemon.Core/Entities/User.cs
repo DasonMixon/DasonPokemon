@@ -12,7 +12,10 @@ namespace DasonPokemon.Core.Entities
         }
 
         public string Email { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public string PTCGOAccountId { get; set; }
         public List<CollectionCard> Collection { get; set; }
+        public bool NeedsFinalized { get; set; }
     }
 }

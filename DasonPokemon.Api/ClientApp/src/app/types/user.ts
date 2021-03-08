@@ -1,5 +1,8 @@
-interface User {
+export interface User {
     id : string;
     email : string;
+    firstName : string;
+    lastName : string;
+    needsFinalized : boolean;
     externalAccountId : string;
 }

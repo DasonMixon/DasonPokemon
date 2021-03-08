@@ -8,31 +8,25 @@ import { switchMap } from 'rxjs/operators';
 export class LocalStorageService {
 
   public get<T>(key : string) : T | null {
-    const data = localStorage.get(key);
+    const data = localStorage.getItem(key);
     if (data) {
-      return data;
+      return data as unknown as T;
     } else {
       return null;
     }
   }
 
   public getOrFetch<T>(key : string, fetch : Observable<T>) : Observable<T> {
-    let data = localStorage.get(key);
-    if (data) {
-      return data;
+    let existingItem = localStorage.getItem(key);
+    if (existingItem) {
+      return of<T>(existingItem as unknown as T);
     } else {
-      data = fetch.pipe(
+      return fetch.pipe(
         switchMap(response => {
             this.set(key, response);
             return of<T>(response as T);
         })
       );
-      if (data) {
-        localStorage.setItem(key, data);
-        return data;
-      } else {
-        return of<T>();
-      }
     }
   }
 
